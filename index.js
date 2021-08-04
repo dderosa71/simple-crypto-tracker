@@ -191,10 +191,15 @@ function myCoinRows(coinData){
                 // img.innerHTML=`<img src="${obj[key]}" alt="Image of ${obj.name}>`;
                 td.appendChild(img)
                 console.log(td)
-                tr.appendChild(td)
+                
         }
-            // else if(key === holdings){}
-        
+            else if(key === 'holdings'){
+                let button = document.createElement('button')
+                button.innerText = 'edit'
+                td.appendChild(button)
+
+            }
+            tr.appendChild(td)
         
         }}
     })

@@ -1,104 +1,6 @@
 {
   "yourcoins": [
     {
-      "id": 1,
-      "name": "BTC",
-      "count": 1,
-      "image": "http://www.pngmart.com/files/3/Toy-Story-Woody-PNG-Photos.png"
-    },
-    {
-      "id": 2,
-      "name": "LTC",
-      "count": 2,
-      "image": "http://www.pngmart.com/files/3/Toy-Story-Woody-PNG-Photos.png"
-    },
-    {
-      "name": "BTC",
-      "count": 1,
-      "image": "www.google.com",
-      "id": 3
-    },
-    {
-      "name": "BTC",
-      "count": 1,
-      "image": "www.google.com",
-      "id": 4
-    },
-    {
-      "name": "",
-      "count": "Add",
-      "image": "www.google.com",
-      "id": 5
-    },
-    {
-      "name": "",
-      "count": "Add",
-      "image": "www.google.com",
-      "id": 6
-    },
-    {
-      "name": "",
-      "count": "Add",
-      "image": "www.google.com",
-      "id": 7
-    },
-    {
-      "name": "",
-      "count": "Add",
-      "image": "www.google.com",
-      "id": 8
-    },
-    {
-      "name": "",
-      "count": "Add",
-      "image": "www.google.com",
-      "id": 9
-    },
-    {
-      "name": "",
-      "count": "Add",
-      "image": "www.google.com",
-      "id": 10
-    },
-    {
-      "name": "Ethereum",
-      "count": "Add",
-      "image": "www.google.com",
-      "id": 11
-    },
-    {
-      "name": "",
-      "image": "",
-      "price": "",
-      "holdings": "",
-      "usdValue": "",
-      "id": 12
-    },
-    {
-      "name": "",
-      "image": "",
-      "price": "",
-      "holdings": "",
-      "usdValue": "",
-      "id": 13
-    },
-    {
-      "name": "",
-      "image": "",
-      "price": "",
-      "holdings": "",
-      "usdValue": "",
-      "id": 14
-    },
-    {
-      "name": "",
-      "image": "",
-      "price": "",
-      "holdings": "",
-      "usdValue": "",
-      "id": 15
-    },
-    {
       "name": "Bitcoin",
       "image": "https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/btc.svg",
       "price": 3000,
@@ -107,7 +9,7 @@
       "id": 16
     },
     {
-      "name": "Bit",
+      "name": "Litecoin",
       "image": "https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/btc.svg",
       "price": 3000,
       "holdings": 0,
