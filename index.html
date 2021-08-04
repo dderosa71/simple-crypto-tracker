@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+
+</head>
+<body>
+<button id="your-coins-button"> Your Coins </button> 
+<button id="explore-coins"> Explore Coins </button> 
+<button id="favorite-coins"> Favorite Coins </button> 
+
+
+
+    <table id='table-top'>
+        <thead>
+            <tr class="explore">
+                <th>Add</th>
+                <th>Like</th>
+                <th></th>
+                <th>Ticker</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="all-coins">
+        </tbody>
+    </table>
+
+
+<div id='your-coins'>
+    <h2>Your Coins</h2>
+
+    <form autocomplete="off" action="/action_page.php">
+        <div class="autocomplete" style="width:300px;">
+          <input id="myInput" class="coin" type="text" name="Search Coins..." placeholder="Search Coins...">
+       
+        </div>
+        <input id="new-coin-submit" type="submit" value=Add>
+      </form>
+
+      <table id='your-coin-table'>
+        <thead>
+            <tr class="your-coins-header">
+                <th>Name</th>
+                <th>Holdings</th>
+                <th>Price</th>
+                <th>USD Value</th>
+            </tr>
+        </thead>
+        <tbody id="your-coins-body">
+            
+        </tbody>
+    </table>
+    
+    <div id="coin-list"></div>
+</div>
+
+<script type="text/javascript" src="index.js"> </script>
+<script type="text/javascript" src="search.js"> </script>
+
+</body>
+</html>
