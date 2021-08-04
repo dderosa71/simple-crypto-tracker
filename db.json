@@ -105,6 +105,22 @@
       "holdings": 0,
       "usdValue": 0,
       "id": 16
+    },
+    {
+      "name": "Bit",
+      "image": "https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/btc.svg",
+      "price": 3000,
+      "holdings": 0,
+      "usdValue": 0,
+      "id": 17
+    },
+    {
+      "name": "Bit",
+      "image": "https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/btc.svg",
+      "price": 3000,
+      "holdings": 0,
+      "usdValue": 0,
+      "id": 18
     }
   ]
 }

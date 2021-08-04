@@ -2,6 +2,8 @@ const emptyHeart = '♡'
 const fullHeart = '♥'
 const tableTop = document.querySelector('#table-top');
 const coinContainer = document.querySelector('#coin-list')
+const yourCoinContainer = document.querySelector('#your-coins-body')
+console.lo
 const coinURL = 'http://localhost:3000/yourcoins'
 nomicsKey = "91e78b6b4b03a231d59598e2b3126326"
 cryptoURL = `https://api.nomics.com/v1/currencies/ticker?key=${nomicsKey}&interval=1d,30d&convert=USD&per-page=25&page=1`
@@ -154,19 +156,51 @@ function newCoin() {
     })
 }
 
-function myCoinRows(coinData){
-    let tr = document.createElement('tr');
-    tr.setAttribute('id', `my-coin-${coinData.name}`) 
-    for (let index of coinData){ 
-        let td = document.createElement('td')
-        if(index === 'image') {
-            let img = document.createElement('td')
-            img.innerHTML=`<img src="${coinData.image}" alt="Image of ${coinData.name}"width="25px" height="25px">`;
-            td.appendChild(img)
-        }
-        tr.appendChild.td
-    }
+function maintainUserData(){
+    fetch('https://api.nomics.com/v1/currencies/ticker?key=91e78b6b4b03a231d59598e2b3126326&interval=1d,30d&convert=USD&per-page=25&page=1')
+    .then (resp => resp.json())
+    .then (json =>  {
+        console.log(json)
+        myCoinRows(json)
+    })
 }
+
+function myCoinRows(coinData){
+    fetch('http://localhost:3000/yourcoins')
+    .then(resp => resp.json())
+    .then(coinData =>  {
+    
+    console.log(coinData)
+    for (let obj of coinData){ 
+        let tr = document.createElement('tr');
+        console.log(obj.name)
+        tr.setAttribute('id', `my-coin-${obj.name}`) 
+        yourCoinContainer.appendChild(tr)
+        console.log('dom')
+        for (let key in obj){
+           
+            
+            let td = document.createElement('td')
+            console.log(key)
+            if(key === 'image') {
+                let img = document.createElement('img')
+                img.setAttribute('src', obj[key])
+                img.setAttribute('alt', obj.name)
+                img.style.height = "25px"
+                img.style.width = "25px"
+                // img.innerHTML=`<img src="${obj[key]}" alt="Image of ${obj.name}>`;
+                td.appendChild(img)
+                console.log(td)
+                tr.appendChild(td)
+        }
+            // else if(key === holdings){}
+        
+        
+        }}
+    })
+}
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
     // createCoins()
@@ -180,15 +214,14 @@ document.addEventListener("DOMContentLoaded", () => {
             let fullCoinObject = json.map(data => data)
             // console.log(coinArrayForSearch)
             autocomplete(document.getElementById("myInput"), coinArrayForSearch);
-            
         })
     newCoin()
     createTop100()
     showFavorites()
     resetExplore()
     displayShowCoins()
-    console.log(coinArrayForSearch)
-    console.log(fullCoinObject)
+    maintainUserData()
+  
     
 }
 )
