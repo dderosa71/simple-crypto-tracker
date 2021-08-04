@@ -165,23 +165,20 @@ function maintainUserData(){
     })
 }
 
-function myCoinRows(coinData){
+function myCoinRows(liveData){
     fetch('http://localhost:3000/yourcoins')
     .then(resp => resp.json())
     .then(coinData =>  {
     
-    console.log(coinData)
     for (let obj of coinData){ 
         let tr = document.createElement('tr');
         console.log(obj.name)
         tr.setAttribute('id', `my-coin-${obj.name}`) 
         yourCoinContainer.appendChild(tr)
-        console.log('dom')
-        for (let key in obj){
-           
-            
+        liveCoinData = liveData.filter(coin => Object.values(coin).includes(obj.name))
+        currentCointObject = liveCoinData[0]
+        for (let key in obj){   
             let td = document.createElement('td')
-            console.log(key)
             if(key === 'image') {
                 let img = document.createElement('img')
                 img.setAttribute('src', obj[key])
@@ -190,15 +187,28 @@ function myCoinRows(coinData){
                 img.style.width = "25px"
                 // img.innerHTML=`<img src="${obj[key]}" alt="Image of ${obj.name}>`;
                 td.appendChild(img)
-                console.log(td)
-                
         }
             else if(key === 'holdings'){
-                let button = document.createElement('button')
-                button.innerText = 'edit'
-                td.appendChild(button)
-
+                td.innerText = "Click Here to Enter Coins"
+                td.setAttribute('contenteditable', true)
+                td.setAttribute('id', `${liveData[0].name}-holdings`)
+                td.addEventListener('keyup', (e) => {
+                    currentValue = td.textContent
+                    let usdHoldings = currentValue > 0 ? currentValue * liveData[0].price : 0;
+                    e.target.nextSibling.innerText = usdHoldings
+                    console.log(e)
+                }
+                    )
             }
+            else if(['price', 'name', 'usdValue'].includes(key))   {
+                let value = key === 'usdValue' ? 0 : liveCoinData[0][key];
+                td.innerText = `${value}`
+                td.setAttribute('id', `${liveData[0].name}-${key}`)
+                
+            } 
+            
+            // }
+            
             tr.appendChild(td)
         
         }}
