@@ -12,7 +12,7 @@ const yourCoins = document.querySelector('#your-coins');
 yourCoins.style.display = 'none'
 
 function createTop100() {
-    fetch("https://api.nomics.com/v1/currencies/ticker?key=91e78b6b4b03a231d59598e2b3126326&interval=1d,30d&convert=USD&per-page=25&page=1")
+    fetch("https://api.nomics.com/v1/currencies/ticker?key=91e78b6b4b03a231d59598e2b3126326&interval=1d,30d&convert=USD&per-page=250&page=1")
         .then(resp => resp.json())
         .then(json => {
             const tableBody = document.getElementById("all-coins")
@@ -28,7 +28,7 @@ function createTop100() {
 function createTableRows(dataFromAPI, tableBody) {
     const tr = document.createElement('tr')
     tr.setAttribute('id', dataFromAPI.name)
-    const wantedFields = ['Add to My Coins', emptyHeart, dataFromAPI.logo_url, dataFromAPI.currency,
+    const wantedFields = [emptyHeart, dataFromAPI.logo_url, dataFromAPI.currency,
         dataFromAPI.name, dataFromAPI.price];
     wantedFields.forEach(field => createTableDataCell(field, tr))
     tableBody.appendChild(tr)
@@ -156,11 +156,21 @@ function newCoin() {
     })
 }
 
+function myCoinPageRefresher(){
+    const yourCoinsButton = document.getElementById('your-coins-button');
+    const newCoinSubmit = document.querySelector("#new-coin-submit")
+    yourCoinsButton.addEventListener('click', ()=> maintainUserData())
+    newCoinSubmit.addEventListener('click', ()=> maintainUserData())
+
+}
+
 function maintainUserData(){
     fetch('https://api.nomics.com/v1/currencies/ticker?key=91e78b6b4b03a231d59598e2b3126326&interval=1d,30d&convert=USD&per-page=25&page=1')
     .then (resp => resp.json())
     .then (json =>  {
         console.log(json)
+        let currentMyCoinData = document.querySelectorAll('.coin-row')
+        currentMyCoinData.forEach(row => row.remove())
         myCoinRows(json)
     })
 }
@@ -169,19 +179,49 @@ function myCoinRows(liveData){
     fetch('http://localhost:3000/yourcoins')
     .then(resp => resp.json())
     .then(coinData =>  {
-    
+    console.log(coinData)
     for (let obj of coinData){ 
         let tr = document.createElement('tr');
         console.log(obj.name)
-        tr.setAttribute('id', `my-coin-${obj.name}`) 
+        tr.setAttribute('id', `my-coin-${obj.name}-${obj.id}`) 
+        tr.className = "coin-row"
         yourCoinContainer.appendChild(tr)
         liveCoinData = liveData.filter(coin => Object.values(coin).includes(obj.name))
-        currentCointObject = liveCoinData[0]
+        currentCoinObject = liveCoinData[0]
+
+        let tdDelete = document.createElement('td')
+        let tdDeleteIMG = document.createElement('img');
+        tdDeleteIMG.setAttribute('src', 'https://icon-library.com/images/delete-icon/delete-icon-13.jpg')
+        tdDeleteIMG.setAttribute('alt', 'delete')
+        tdDeleteIMG.style.height = "25px"
+        tdDeleteIMG.style.width = "25px"
+        tdDelete.append(tdDeleteIMG)
+        tr.append(tdDeleteIMG)
+        console.log(liveCoinData)
+        tdDeleteIMG.addEventListener('click', (e) => {
+            e.preventDefault()
+            tr.remove()
+            fetch(`http://localhost:3000/yourcoins/${obj.id}`,{
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+        })
+        })
+
+        
+       
+        
+
         for (let key in obj){   
+            console.log('loopentered')
             let td = document.createElement('td')
+            
             if(key === 'image') {
+                const logo = liveCoinData[0].logo_url;
                 let img = document.createElement('img')
-                img.setAttribute('src', obj[key])
+                img.setAttribute('src', logo)
                 img.setAttribute('alt', obj.name)
                 img.style.height = "25px"
                 img.style.width = "25px"
@@ -192,9 +232,13 @@ function myCoinRows(liveData){
                 td.innerText = "Click Here to Enter Coins"
                 td.setAttribute('contenteditable', true)
                 td.setAttribute('id', `${liveData[0].name}-holdings`)
+                const thePrice = liveCoinData[0].price
+                console.log(thePrice)
                 td.addEventListener('keyup', (e) => {
                     currentValue = td.textContent
-                    let usdHoldings = currentValue > 0 ? currentValue * liveData[0].price : 0;
+                    console.log(liveData[0].price)
+                    // why does this fail when not set as a variable outside of this line?
+                    let usdHoldings = currentValue > 0 ? thePrice * currentValue : 0;
                     e.target.nextSibling.innerText = usdHoldings
                     console.log(e)
                 }
@@ -203,7 +247,7 @@ function myCoinRows(liveData){
             else if(['price', 'name', 'usdValue'].includes(key))   {
                 let value = key === 'usdValue' ? 0 : liveCoinData[0][key];
                 td.innerText = `${value}`
-                td.setAttribute('id', `${liveData[0].name}-${key}`)
+                td.setAttribute('id', `${liveCoinData[0][name]}-${key}`)
                 
             } 
             
@@ -211,6 +255,20 @@ function myCoinRows(liveData){
             
             tr.appendChild(td)
         
+            function holdings(){
+                td.innerText = "Click Here to Enter Coins"
+                td.setAttribute('contenteditable', true)
+                td.setAttribute('id', `${liveData[0].name}-holdings`)
+                td.addEventListener('keyup', (e) => {
+                    currentValue = td.textContent
+                    console.log(liveData[0].price)
+                    let usdHoldings = currentValue > 0 ? currentValue * liveData[0].price : 0;
+                    e.target.nextSibling.innerText = usdHoldings
+                    console.log(e)
+                }
+                    )
+            }
+
         }}
     })
 }
@@ -235,7 +293,9 @@ document.addEventListener("DOMContentLoaded", () => {
     showFavorites()
     resetExplore()
     displayShowCoins()
-    maintainUserData()
+    // maintainUserData()
+    myCoinPageRefresher()
+
   
     
 }

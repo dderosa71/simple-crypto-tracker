@@ -6,23 +6,23 @@
       "price": 3000,
       "holdings": 0,
       "usdValue": 0,
-      "id": 16
+      "id": 62
     },
     {
-      "name": "Litecoin",
+      "name": "Ethereum Classic",
       "image": "https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/btc.svg",
       "price": 3000,
       "holdings": 0,
       "usdValue": 0,
-      "id": 17
+      "id": 64
     },
     {
-      "name": "Ethereum",
+      "name": "ChainLink",
       "image": "https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/btc.svg",
       "price": 3000,
       "holdings": 0,
       "usdValue": 0,
-      "id": 18
+      "id": 65
     }
   ]
 }
