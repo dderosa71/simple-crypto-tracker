@@ -1,4 +1,10 @@
 
+//****************************************** */
+//DID NOT WRITE THIS: This is just for the dynamic search bar
+//on the add coins page. Found here:
+//https://embed.plnkr.co/XTk2nmA6N9Mozo76Ae39/
+//****************************************** */
+
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
